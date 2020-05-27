@@ -254,13 +254,22 @@ def render_table(table):
   "Render a table to html"
   table = process_archive(table)
   rval = E('table')
+  # table header
+  thead = E('thead')
+  tr = E('tr')
+  for col in table['crColumns']:
+    th = E('th')
+    tr.append(th)
+  thead.append(tr)
+  rval.append(thead)
+  # table rows
   for row in table['crRows']:
     tr = E('tr')
-    rval.append(tr)
     for col in table['crColumns']:
       cell = table.get('cellColumns').get(col,{}).get(row)
       td = E('td',render_html(cell,{}))
-      rval.append(td)
+      tr.append(td)
+    rval.append(tr)
   return rval
 
 s_string = {
