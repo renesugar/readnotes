@@ -14,14 +14,10 @@ from email.message import EmailMessage
 from email.parser import BytesParser, Parser
 from email.policy import default
 
-from bs4 import BeautifulSoup
-
-from markdown2 import Markdown
 
 from datetime import datetime
-from pytz import timezone
 
-from html2txt import converters
+
 
 import hashlib
 
@@ -119,6 +115,7 @@ def create_message_id(id_=None):
     return ("<%s>@mail.gmail.com" % (id_,))
 
 def text_to_markdown(data):
+  from markdown2 import Markdown
   pattern = (
     r'((([A-Za-z]{3,9}:(?:\/\/)?)'  # scheme
     r'(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+(:\[0-9]+)?'  # user@hostname:port
@@ -135,10 +132,13 @@ def text_to_markdown(data):
   return html_to_markdown(html)
 
 def markdown_to_html(data):
+  from markdown2 import Markdown
   markdown=Markdown()
   return markdown.convert(data)
 
 def markdown_to_text(data):
+  from markdown2 import Markdown
+  from bs4 import BeautifulSoup
   markdown=Markdown()
   html = markdown.convert(data)
   soup = BeautifulSoup(html, "html.parser")
@@ -146,11 +146,13 @@ def markdown_to_text(data):
   return plain_text
 
 def html_to_text(data, separator='\n'):
+  from bs4 import BeautifulSoup
   soup = BeautifulSoup(data, "html.parser")
   text = soup.get_text(separator)
   return text
 
 def html_to_markdown(data):
+  from html2txt import converters
   markdown = converters.Html2Markdown().convert(data)
   return markdown
 

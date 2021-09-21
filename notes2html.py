@@ -163,7 +163,7 @@ def render_html(note,attachments):
           tag = ['ul','ul','ol','ul'][pstyle - 100]
           par = rval
           while indent > 0:
-            last = par.getchildren()[-1]
+            last = list(par)[-1]
             if last.tag != tag:
               break
             par = last
@@ -172,8 +172,8 @@ def render_html(note,attachments):
             par = append(par,E(tag))
             indent -= 1
           par = append(par,E('li'))
-        elif pstyle == 4 and rval.getchildren()[-1].tag == 'pre':
-          par = rval.getchildren()[-1]
+        elif pstyle == 4 and list(rval)[-1].tag == 'pre':
+          par = list(rval)[-1]
           append(par,"\n")
         else:
           par = append(rval,E(styles.get(pstyle,'p')))
