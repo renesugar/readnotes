@@ -13,7 +13,7 @@ from email.message import EmailMessage
 from email.parser import BytesParser, Parser
 from email.policy import default
 
-from bs4 import BeautifulSoup
+
 
 from datetime import datetime
 from datetime import timedelta
@@ -27,7 +27,7 @@ import notesdb
 import common
 
 import urllib
-from biplist import *
+
 
 from notes2html import ReadAttachments, ProcessNoteBodyBlob, DefaultCss, PrintAttachments
 
